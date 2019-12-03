@@ -84,11 +84,7 @@ public class Logic {
                     }
                 }
             }
-            if (countJ == table.length) {
-                result = true;
-                break;
-            }
-            if (countI == table.length){
+            if (countJ == table.length || countI == table.length) {
                 result = true;
                 break;
             }
