@@ -31,17 +31,11 @@ public class BishopBlack implements Figure {
         Cell[] steps = new Cell[size];
         int x = source.getX();
         int y = source.getY();
+        int deltaX = Integer.compare(dest.getX(), source.getX());
+        int deltaY = Integer.compare(dest.getY(), source.getY());
         for (int index = 0; index < size; index++) {
-            if (Integer.compare(dest.getX(), source.getX()) == 1) {
-                x++;
-            } else {
-                x--;
-            }
-            if (Integer.compare(dest.getY(), source.getY()) == 1) {
-                y++;
-            } else {
-                y--;
-            }
+            x = deltaX == 1 ? ++x : --x;
+            y = deltaY == 1 ? ++y : --y;
             steps[index] = Cell.findXY(x, y);
         }
         return steps;
