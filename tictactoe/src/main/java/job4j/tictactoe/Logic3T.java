@@ -26,25 +26,25 @@ public class Logic3T {
     }
 
     public boolean isWinnerX() {
-        return this.fillBy(Figure3T::hasMarkX, 0, 0, 1, 0) ||
-                this.fillBy(Figure3T::hasMarkX, 0, 1, 1, 0) ||
-                this.fillBy(Figure3T::hasMarkX, 0, this.table.length - 1, 1, 0) ||
-                this.fillBy(Figure3T::hasMarkX, 0, 0, 0, 1) ||
-                this.fillBy(Figure3T::hasMarkX, 1, 0, 0, 1) ||
-                this.fillBy(Figure3T::hasMarkX, this.table.length - 1, 0, 0, 1) ||
-                this.fillBy(Figure3T::hasMarkX, 0, 0, 1, 1) ||
-                this.fillBy(Figure3T::hasMarkX, this.table.length - 1 , 0, -1, 1);
+        return isWin(Figure3T::hasMarkX);
     }
 
     public boolean isWinnerO() {
-        return this.fillBy(Figure3T::hasMarkO, 0, 0, 1, 0) ||
-                this.fillBy(Figure3T::hasMarkO, 0, 1, 1, 0) ||
-                this.fillBy(Figure3T::hasMarkO, 0, this.table.length - 1, 1, 0) ||
-                this.fillBy(Figure3T::hasMarkO, 0, 0, 0, 1) ||
-                this.fillBy(Figure3T::hasMarkO, 1, 0, 0, 1) ||
-                this.fillBy(Figure3T::hasMarkO, this.table.length - 1, 0, 0, 1) ||
-                this.fillBy(Figure3T::hasMarkO, 0, 0, 1, 1) ||
-                this.fillBy(Figure3T::hasMarkO, this.table.length - 1, 0, -1, 1);
+        return isWin(Figure3T::hasMarkO);
+    }
+    public boolean isWin(Predicate<Figure3T> predicate) {
+        boolean isCombinationHorizontal = false;
+        boolean isCombinationVertical = false;
+        for (int i = 0; i < table.length; i++) {
+            if (fillBy(predicate, i, 0, 0, 1)) {
+                isCombinationHorizontal = true;
+            }
+            if (fillBy(predicate, 0, i, 1, 0)) {
+                isCombinationVertical = true;
+            }
+        }
+        return isCombinationHorizontal || isCombinationVertical
+                || fillBy(predicate, 0, 0, 1, 1) || fillBy(predicate, table.length - 1, 0, -1, 1);
     }
 
     public boolean hasGap() {
